@@ -1,0 +1,203 @@
+{%  load static %}
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/topicposts.css' %}"/>
+
+
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    <title> {{ burc.burc_adi }} Burcu Detayları</title>
+</head>
+<body>
+
+
+<div class="navbar">
+
+     <nav>
+        <h2 class="logo"><a href="{% url 'anasayfa' %}">Astrolots</a></h2>
+        <ul>
+            <li><a href="{% url 'anasayfa' %}">Anasayfa</a> </li>
+            <li><a href="{% url 'burclar' %}">Burçlar</a> </li>
+            <li><a href="{% url 'burc_yukselen_hesapla' %}">Yükselen Hesapla</a> </li>
+            <li><a href="{% url 'all_topics' %}">Forum</a> </li>
+        </ul>
+        {% if user.is_authenticated %}
+               <div class="dropdown">
+            <div class="dropdown1">
+                <img src="{{kullanici_burc_resim}}" alt="Avatar" class="avatar">
+               <p>{{ user.get_full_name|title }}</p>
+            </div>
+
+                  <div class="dropdown-content">
+                      <p>Burcunuz: {{ kullanici_burc }}</p>
+                      <hr>
+                 <!--     <p>Doğum Tarihi: {{ user.profile.gun }}/{{ user.profile.ay }}/{{ user.profile.yil }}</p>-->
+                    <a href="{% url 'profile' %}">Profili Düzenle</a>
+                    <a href="{% url 'logout' %}">Çıkış Yap</a>
+                  </div>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn" style="background: #191919;color:white;font-weight: bold;">Giriş Yap</a>
+        {% endif %}
+
+    </nav>
+
+</div>
+<div class="topic" >
+    <div class="baslik">
+        <h1>{{ topic.subject|capfirst }}</h1>
+
+         {% if topic.starter == request.user or request.user.is_superuser %}
+             <div class="baslikicon">
+              <a href="{% url 'topic_delete' topic.id %}" style="padding-right: 20px"><i class="fa-solid fa-trash"></i></a>
+             <a href="{% url 'topic_edit' topic.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
+
+             </div>
+
+         {% endif %}
+    </div>
+
+    <div class="aciklama">
+        <p>{{ topic.description|linebreaksbr}}</p>
+        <div class="begeni">
+
+                 <form action="{% url 'like_topic' topic.id %}" method="POST">
+                 {% csrf_token %}
+                 {% if user.is_authenticated %}
+                      <div class="like">
+                     <button class="btn" type="submit">
+                        {% if request.user in topic.topic_likes.all %}
+                        <i class="fa-solid fa-heart"></i>
+                        {% else %}
+                        <i class="fa-regular fa-heart"></i>
+                        {% endif %}
+                    </button>
+ {% endif %}
+                 <p>{{ topic.topic_likes.count }} kişi beğendi</p>
+                       </div>
+
+
+                 </form>
+
+            <div class="gonderen">
+                 <p style="color:#ababab;">Gönderen:{{ topic.starter|upper }}</p>
+                 <p style="color:#ababab;">Güncelleme:{{ topic.last_updated}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="colls">
+<div class="coll2">
+
+
+<div class="basliklar">
+<h1>Beğenilen başlıklar</h1>
+    {% for topic in liked_topics %}
+        <div class="topicler">
+         <a href="{% url 'topic_posts' topic.id %}">{{ topic.subject|truncatewords:6 }}     </a>
+         <p> beğenildi:{{ topic.topic_likes.count }}</p>
+        </div>
+
+    {% endfor %}
+</div>
+<div class="basliklar">
+     <h1>Popüler başlıklar</h1>
+    {% for topic in top_topics %}
+        <div class="topicler">
+         <a href="{% url 'topic_posts' topic.id %}">{{ topic.subject|truncatewords:6 }}     </a>
+         <p> yanıtlandı:{{ topic.posts.count }}</p>
+        </div>
+
+    {% endfor %}
+</div>
+
+</div>
+<div class="col1">
+  <div class="posts">
+
+    {% for post in posts %}
+    <div class="post">
+
+      {% if post.parent %}
+            <div class="ppp"><p class="pp">Yanıtlandı: {{ post.parent|truncatewords:10 }}</p></div>
+        {% endif %}
+<div class="message">
+    <p style="font-size: 20px;">{{ post.message|linebreaks }}</p>
+      {% if post.created_by == request.user or request.user.is_superuser %}
+          <div>
+          <a href="{% url 'post_delete' post.id %}" style="color: white;padding-right: 10px"><i class="fa-solid fa-trash"></i></a>
+           <a href="{% url 'post_edit' post.id %}" style="color:white;"><i class="fa-solid fa-pen-to-square"></i></a>
+          </div>
+
+          {% endif %}
+
+</div>
+
+    <div class="kisi">
+
+          <p>{{ post.created_by|upper }}</p>
+         <p>{{ post.created_at }}</p>
+    </div>
+
+<div class="uc">
+    <div class="like">
+          {% if user.is_authenticated %}
+            <form action="{% url 'like_post' post_id=post.id %}" method="POST">
+        {% csrf_token %}
+        {% if user in post.post_likes.all %}
+            <button type="submit" class="btn" style="margin: 0"> <i class="fa-solid fa-heart"></i></button>
+
+        {% else %}
+            <button class="btn" type="submit" style="margin: 0">  <i class="fa-regular fa-heart"></i></button>
+        {% endif %}
+    </form>
+            {% endif %}
+ <p>{{ post.post_likes.count }} kişi beğendi</p>
+
+    </div>
+<a class="aa" href="{% url 'reply_post' post.id %}">Yorumu Yanıtla</a>
+
+</div>
+
+ <hr class="hrr">
+        </div>
+
+    {% endfor %}
+  </div>
+
+
+
+<div class="yeni_yorum" style="margin-bottom: 100px">
+      {% if request.user.is_authenticated %}
+        <h2>Yeni Yorum Ekle:</h2>
+  <form method="post" action="#">
+    {% csrf_token %}
+      <div class="inputbox">
+             <label>
+          <textarea name="message" rows="5" cols="50"></textarea>
+      </label>
+      <button type="submit" class="bttn">Gönder</button>
+      </div>
+
+  </form>
+{% endif %}
+</div>
+</div>
+
+
+
+</div>
+</body>
+</html>
+

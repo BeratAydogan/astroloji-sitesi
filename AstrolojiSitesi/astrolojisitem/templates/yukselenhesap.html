@@ -1,0 +1,144 @@
+{% load static %}
+
+
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/yukselenhesap.css' %}"/>
+
+
+
+    <title>Yükselen Hesapla</title>
+     <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+</head>
+
+<body>
+ <nav>
+        <h2 class="logo"><a href="anasayfa">Astrolots</a></h2>
+        <ul>
+            <li><a href="anasayfa">Anasayfa</a> </li>
+            <li><a href="burclar">Burçlar</a> </li>
+            <li><a href="yukselenhesap">Yükselen Hesapla</a> </li>
+            <li><a href="{% url 'all_topics' %}">Forum</a> </li>
+        </ul>
+        {% if user.is_authenticated %}
+              <div class="dropdown">
+            <div class="dropdown1">
+                <img src="{{kullanici_burc_resim}}" alt="Avatar" class="avatar">
+               <p>{{ user.get_full_name|title }}</p>
+            </div>
+
+                  <div class="dropdown-content">
+
+                      <p>Burcunuz: {{ kullanici_burc }}</p>
+                      <hr>
+                 <!--     <p>Doğum Tarihi: {{ user.profile.gun }}/{{ user.profile.ay }}/{{ user.profile.yil }}</p>-->
+                    <a href="{% url 'profile' %}">Profili Düzenle</a>
+                    <a href="{% url 'logout' %}">Çıkış Yap</a>
+                  </div>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn">Giriş Yap</a>
+
+        {% endif %}
+
+    </nav>
+ <div class="nedir"><h1>Yükselen Burç Nedir?</h1>
+     <p>Yükselen burç, doğum tarihi ve saati dikkate alınarak yapılan hesaplama ile ortaya çıkan burca denir. Yükselen burcu,
+     doğum anında güneşin doğuş istikametinde
+     bulunan göksel bölge olarak tanımlanır. Farklı bir tanımlamaya göre ise yükselen burç ne demek sorusu,
+     gökyüzündeki 12 yıldız bloğunu simgeler olarak açıklanır. Bu bilgiler ışığında yükselen burç hesaplama işlemi ile
+     yükseleninizi öğrenmek ve bulmak için elinizde net bir doğum tarihi ile saati bilgisinin olması gerektiğini söylemek mümkündür.
+     Aksi halde hesaplama işlemi doğru sonuç vermez.</p>
+
+ </div>
+<div class="sayfa">
+       <div class="forms">
+<form method="post" action="{% url 'burc_yukselen_hesapla' %}">
+    {% csrf_token %}
+    <h3 style="color: white;font-weight: bold">Yükselen Burç Hesapla</h3>
+    <hr>
+     <p style="color: white;font-weight: bold">Doğum saatinizi bilmiyorsanız doğduğunuz vakite yakın bir saat seçebilirsiniz.</p>
+
+    <div class="dogum_tarih">
+
+        <div class="inputbox2">
+    <label for="yil">Doğum Yılı:</label>
+    <input type="number" id="yil" name="yil" required min="1900" max="2023">
+    </div>
+    <div class="inputbox2">
+    <label for="ay">Doğum Ayı:</label>
+    <input type="number" id="ay" name="ay" required min="1" max="12">
+    </div>
+    <div class="inputbox2">
+    <label for="gun">Doğum Günü:</label>
+    <input type="number" id="gun" name="gun" required min="1" max="31">
+    </div>
+
+    </div>
+
+    <div class="dogum_zaman">
+
+        <div class="inputbox">
+    <label for="saat">Doğum Saati:</label>
+    <input type="number" id="saat" name="saat" required min="0" max="23">
+    </div>
+    <div class="inputbox">
+    <label for="dakika">Doğum Dakikası:</label>
+    <input type="number" id="dakika" name="dakika" required min="0" max="59">
+    </div>
+    <div class="inputbox">
+    <label for="saniye">Doğum Saniyesi:</label>
+    <input type="number" id="saniye" name="saniye" required min="0" max="59">
+    </div>
+
+
+    </div>
+
+
+     <div class="inputbox">
+    <label for="Sehir">Doğum Yeri(Doğduğunuz Şehri Giriniz):</label>
+    <input type="text" id="sehir" name="sehir" required>
+    </div>
+    <button type="submit">Hesapla</button>
+</form>
+</div>
+
+    <div class="yukselen">
+
+
+{% if yukselen_burc %}
+
+
+<div class="yukselen_bilgi">
+
+    <a class="yukselen_a" href="{% url 'detaylar' yukselen_burc_id %}">
+             <h1 class="card-title">Yükselen Burcunuz: {{yukselen_burc }}</h1>
+            <img src="{{yukselen_burc_img.url}}"  class="card-img" alt="">
+    </a>
+
+
+</div>
+
+    </div>
+</div>
+    <div class="yukselen"> <p>{{burc_yukselen|linebreaks}}</p></div>
+
+
+
+
+{% endif %}
+
+
+
+</body>
+
+
+
+

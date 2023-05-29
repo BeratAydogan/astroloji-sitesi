@@ -1,0 +1,42 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/gonderi.css' %}"/>
+        <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+ <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+<title>Yeni Başlık Oluştur</title>
+</head>
+
+
+<body>
+<nav><h2 class="logo"><a href="{% url 'anasayfa' %}">Astrolots</a></h2></nav>
+
+  <section>
+        <div class="error">
+            <label for="reply_to"><p>Yanıtlanan mesaj:</p></label>
+            <br>
+        {{ parent.message }}<br><br>{{ parent.created_by|upper }} tarafından gönderildi</div>
+
+        <div class="form-box">
+            <div class="form-value">
+               <form method="post" action="#">
+        {% csrf_token %}
+        <label for="message"><p style="color: white">Mesajınız:</p></label><br>
+        <textarea id="message" name="message" rows="5" cols="50" ></textarea><br>
+
+        <button type="submit">Gönder</button>
+    </form>
+            </div>
+        </div>
+    </section>
+</body>

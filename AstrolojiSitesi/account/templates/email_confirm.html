@@ -1,0 +1,6 @@
+{% autoescape off%}
+
+ASTROLOTS'a Hoşgeldin {{ name }}
+    Lütfen doğrulama linkine tıklayarak  kaydını tamamla
+    Doğrulama Linki: http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

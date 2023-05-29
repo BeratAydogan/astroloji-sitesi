@@ -1,0 +1,138 @@
+{%  load static %}
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/forum.css' %}"/>
+
+
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    <title>Forum</title>
+</head>
+<div class="navbar">
+
+     <nav>
+        <h2 class="logo"><a href="{% url 'anasayfa' %}">Astrolots</a></h2>
+        <ul>
+            <li><a href="{% url 'anasayfa' %}">Anasayfa</a> </li>
+            <li><a href="{% url 'burclar' %}">Burçlar</a> </li>
+            <li><a href="{% url 'burc_yukselen_hesapla' %}">Yükselen Hesapla</a> </li>
+            <li><a href="{% url 'all_topics' %}">Forum</a> </li>
+        </ul>
+        {% if user.is_authenticated %}
+               <div class="dropdown">
+            <div class="dropdown1">
+                <img src="{{kullanici_burc_resim}}" alt="Avatar" class="avatar">
+               <p>{{ user.get_full_name|title }}</p>
+            </div>
+
+                  <div class="dropdown-content">
+                      <p>Burcunuz: {{ kullanici_burc }}</p>
+                      <hr>
+                 <!--     <p>Doğum Tarihi: {{ user.profile.gun }}/{{ user.profile.ay }}/{{ user.profile.yil }}</p>-->
+                    <a href="{% url 'profile' %}">Profili Düzenle</a>
+                    <a href="{% url 'logout' %}">Çıkış Yap</a>
+                  </div>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn">Giriş Yap</a>
+        {% endif %}
+
+    </nav>
+
+</div>
+
+
+<div class="topic_make">
+<div class="topic">
+<h1>AstroForuma Hoşgeldin</h1>
+
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'new_topic' board_id=1 %}">Yeni Başlık Ekle</a>
+{% endif %}
+<form method="GET" action="{% url 'all_topics' %}">
+    <label>
+        <input type="text" name="search_query" placeholder="Ara...">
+    </label>
+    <button class="btn"style="border-radius: 5px;" type="submit">Ara</button>
+
+
+
+
+</form>
+
+</div>
+</div>
+
+
+
+
+
+<div class="cards">
+
+     {% for topic in topics %}
+    <a href="{% url 'topic_posts' topic.id %}">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">{{ topic.subject|truncatewords:10 }}</h1>
+                <p>{{ topic.description|truncatewords:15 }}...</p>
+                <div class="alttaraf">
+                    <p class="card-subtitle">Gönderen:{{topic.starter|upper}}</p>
+                    <p class="card-subtitle">{{ topic.topic_likes.count}}  beğeni</p>
+                    <p class="card-subtitle">yorum sayısı:{{ topic.posts.count}}</p>
+                </div>
+
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<footer>
+<div class="coll-1">
+   <h3 style="color: white">Yardımcı Linkler</h3>
+    <a href="{% url 'anasayfa' %}">Anasayfa</a>
+    <a href="{% url 'burclar' %}">Burçlar</a>
+    <a href="{% url 'burc_yukselen_hesapla' %}">Yükselen Hesapla</a>
+    <a href="{% url 'profile' %}">Profil</a>
+   <a href="{% url 'all_topics' %}">Forum</a>
+
+</div>
+
+     <div class="coll-3">
+    <h3 style="color: white">Sosyal Medya Hesaplarım</h3>
+    <p>Berat Aydoğan</p>
+    <div class="social">
+        <a href="https://www.facebook.com/berat.aydogan.353250/"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/_berataydogan/"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://twitter.com/?lang=tr"><i class="fa-brands fa-twitter"></i></a>
+
+
+    </div>
+
+
+</div>
+
+
+    <div class="coll-2">
+    <h3 style="color: white">İletişim</h3>
+    <p>Berat Aydoğan</p>
+          <p>Eposta: astrolots1@gmail.com</p>
+          <p>Telefon: 05XX XXX XX XX</p>
+
+
+    </div>
+
+
+
+
+
+</footer>
+
+

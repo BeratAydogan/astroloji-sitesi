@@ -1,0 +1,161 @@
+{%  load static %}
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/detaylar.css' %}"/>
+
+
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    <title> {{ burc.burc_adi }} Burcu Detayları</title>
+</head>
+<body>
+<div class="top-button">
+    <a href="#"> ⁢⁢⁢⁢⮝</a>
+</div>
+
+<div class="navbar">
+
+     <nav>
+        <h2 class="logo"><a href="anasayfa">Astrolots</a></h2>
+        <ul>
+            <li><a href="anasayfa">Anasayfa</a> </li>
+            <li><a href="burclar">Burçlar</a> </li>
+            <li><a href="yukselenhesap">Yükselen Hesapla</a> </li>
+            <li><a href="{% url 'all_topics' %}">Forum</a> </li>
+        </ul>
+        {% if user.is_authenticated %}
+               <div class="dropdown">
+            <div class="dropdown1">
+                <img src="{{kullanici_burc_resim}}" alt="Avatar" class="avatar">
+               <p>{{ user.get_full_name|title }}</p>
+            </div>
+
+                  <div class="dropdown-content">
+                      <p>Burcunuz: {{ kullanici_burc }}</p>
+                      <hr>
+                 <!--     <p>Doğum Tarihi: {{ user.profile.gun }}/{{ user.profile.ay }}/{{ user.profile.yil }}</p>-->
+                    <a href="{% url 'profile' %}">Profili Düzenle</a>
+                    <a href="{% url 'logout' %}">Çıkış Yap</a>
+                  </div>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn">Giriş Yap</a>
+        {% endif %}
+
+    </nav>
+
+</div>
+<div class="bosluk"></div>
+<section class="about">
+
+
+
+    <div class="main">
+        <div class="about-text">
+          <div class="bosluk"></div>
+            <h4 style="color: white; font-size: 45px">{{ burc.burc_adi }} Burcu hakkında</h4>
+            <img style="width: 900px;height: 500px;box-shadow: #191919; mix-blend-mode: normal;z-index: 1"  src="{{burc.resim.url}}">
+            <div class="bosluk"></div>
+            <h6 id="ozellik" style="font-size: 20px;color:white">Özellikler ve Nitelikleri</h6><br>
+            <div class="zs-meta">
+                <div class="meta-item"><span class="taga">Tarih:</span> <span class="tag">{{ burc.tarih }}</span></div>
+                <div class="meta-item"><span class="taga">Takımyıldız:</span> <span class="tag ">{{ burc.takimyildiz_adi }}</span></div>
+                <div class="meta-item"><span class="taga">Nitelik ve Elementi:</span> <span class="tag">{{ burc.niteligi }} {{ burc.elementi }}</span></div>
+                <div class="meta-item"><span class="taga">Yönetici Gezegeni:</span> <span class="tag ">{{ burc.gezegeni }}</span></div>
+                <div class="meta-item"><span class="taga">Mantra:</span> <span class="tag">{{ burc.mantra}}</span></div>
+                <div class="meta-item"><span class="taga">Rengi:</span> <span class="tag">{{ burc.renk }}</span></div>
+            </div>
+            <div class="bosluk"></div>
+
+            <h5 id="yorum">{{ burc.burc_adi }} Burcu Günlük Yorumu </h5>
+            <hr>
+            <p>{{ burc.gunluk_yorum|linebreaks}}</p>
+            <hr>
+            <p>{{ burc.aciklama|linebreaks}}</p><br><br>
+
+
+
+
+            <h5 id="olumlu">Olumlu Yönleri </h5>
+
+            <p>{{ burc.aciklama_olumlu|linebreaks}}</p>
+            <hr><br><br>
+            <h5 id="olumsuz">Olumsuz Yönleri </h5>
+            <p>{{ burc.aciklama_olumsuz|linebreaks}}</p><hr><br><br>
+            <h5 id="guclu">Güçlü Yönleri </h5>
+            <p>{{ burc.aciklama_guclu|linebreaks}}</p><hr><br>
+            <h5 id="zayif">Zayıf Yönleri </h5>
+             <p> {{ burc.aciklama_zayif|linebreaks}}</p><br>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="direct">
+
+        <ul>
+            <h3 style="color: white">İçindekiler</h3>
+            <li><a href="#ozellik">Özellikler ve Nitelikleri</a></li>
+            <li><a href="#olumlu">Olumlu Yönleri</a></li>
+            <li><a href="#olumsuz">Olumsuz Yönleri</a></li>
+            <li><a href="#guclu">Güçlü Yönleri</a></li>
+            <li><a href="#zayif">Zayıf Yönleri</a></li>
+
+        </ul>
+    </div>
+
+
+
+</section>
+
+<footer>
+<div class="coll-1">
+   <h3 style="color: white">Yardımcı Linkler</h3>
+    <a href="anasayfa">Anasayfa</a>
+    <a href="burclar">Burçlar</a>
+    <a href="yukselenhesap">Yükselen Hesapla</a>
+    <a href="profile">Profil</a>
+    <a href="{% url 'all_topics' %}">Forum</a>
+
+</div>
+
+     <div class="coll-3">
+    <h3 style="color: white">Sosyal Medya Hesaplarım</h3>
+    <p>Berat Aydoğan</p>
+    <div class="social">
+        <a href="https://www.facebook.com/berat.aydogan.353250/"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/_berataydogan/"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://twitter.com/?lang=tr"><i class="fa-brands fa-twitter"></i></a>
+
+
+    </div>
+
+
+</div>
+
+
+    <div class="coll-2">
+    <h3 style="color: white">İletişim</h3>
+    <p>Berat Aydoğan</p>
+          <p>Eposta: astrolots1@gmail.com</p>
+          <p>Telefon: 05XX XXX XX XX</p>
+
+
+    </div>
+
+
+
+
+
+</footer>
+ </body>
+</html>

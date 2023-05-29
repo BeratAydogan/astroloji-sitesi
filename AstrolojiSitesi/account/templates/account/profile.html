@@ -1,0 +1,174 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}"/>
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+<title>Profil</title>
+</head>
+<body>
+<nav> <h2 class="logo"><a href="{% url 'anasayfa' %}">Astrolots</a></h2></nav>
+
+
+    <section>
+
+         <div class="profile">
+        <p class="burc">{{kullanici_burc}}</p>
+        <img src="{{kullanici_burc_resim}}" alt="Avatar" class="avatar">
+        <p class="name">{{ user.get_full_name }}</p>
+        <p class="email">{{ user.email }}</p>
+    </div>
+
+
+    {% if user_form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in user_form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+
+ <div class="form-box">
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+
+                 <h3> Profili Düzenle</h3>
+
+
+                        <div class="user">
+                             <div class="box">
+                             <label class="small mb-1">Kullanıcı Adı</label>
+                            {{ user_form.username }}
+                        </div>
+                       <div class="box">
+                           <label class="small mb-1">Eposta</label>
+                            {{ user_form.email }}
+                       </div>
+                        </div>
+                            <div class="user">
+                                <div class="box">
+                            <label class="small mb-1">İsim</label>
+                            {{ user_form.first_name }}
+                        </div>
+                        <div class="box">
+                             <label class="small mb-1">Soyisim</label>
+                            {{ user_form.last_name }}
+                        </div>
+                            </div>
+
+
+                     <!--   {{ user.last_name }}-->
+
+
+
+
+
+
+                <div class="user">
+                    <div class="dob">
+                         <label>Gün</label>
+                    {{ profile_form.gun }}
+                    </div>
+                   <div class="dob">
+                        <label class="dobb">Ay</label>
+                       {{ profile_form.ay}}
+                   </div>
+                   <div class="dob">
+                     <label class="dobb">Yıl</label>
+                       {{ profile_form.yil }}
+
+                   </div>
+                </div>
+            <div class="metinsel">
+
+                <div class="gunluk"><label class="small mb-1">Günlük email istiyorum:</label> {{ profile_form.gonder }}</div>
+                 {% if user.is_superuser  %}
+                    <a href="{% url 'daily_emails' %}">Günlük emaili gönder</a>
+                    {% endif %}
+                 <div class="sifre"><a href="{% url 'password_change' %}">Şifre değiştir</a></div>
+            </div>
+
+
+
+            <br><br>
+        <div class="buttons" style="justify-content: space-evenly">
+             <button type="submit" class="btn btn-dark btn-lg">Kaydet</button>
+            <button type="reset" class="btn btn-dark btn-lg">Sıfırla</button>
+        </div>
+
+        </form>
+    </div>
+
+
+</section>
+
+
+<div class="post_topic">
+
+    <div class="list">
+    <h2>Kullanıcı Başlıkları</h2>
+        {% for topic in topics %}
+        <div class="element">
+        <div class="ust">
+            <a href="{% url 'topic_posts' topic.id %}">{{ topic.subject|truncatewords:3 }}</a>
+            <span class="icon-spacing"></span>
+            <div class="edit_delete">
+                 <a href="{% url 'topic_edit' topic.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                 <span class="icon-spacing"></span>
+                 <a href="{% url 'topic_delete2' topic.id %}"><i class="fa-solid fa-trash"></i></a>
+            </div>
+
+        </div>
+
+            <p>{{ topic.topic_likes.count }} kişi beğendi</p>
+        </div>
+        {% empty %}
+    <li style="color: white;font-size: 20px">Kullanıcı Başlık Açmamıştır.</li>
+        {% endfor %}
+    </div>
+
+    <div class="list">
+    <h2>Kullanıcı Yorumları</h2>
+        {% for post in posts %}
+         <div class="element">
+         <div class="ust">
+             <a href="{% url 'topic_posts' post.topic.id %}">{{ post.message|truncatewords:5 }}</a>
+             <span class="icon-spacing"></span>
+             <div class="edit_delete">
+                  <a href="{% url 'post_edit' post.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                  <span class="icon-spacing"></span>
+                  <a href="{% url 'post_delete2' post.id %}"><i class="fa-solid fa-trash"></i></a>
+             </div>
+
+
+         </div>
+
+            <p>{{ post.post_likes.count }} kişi beğendi</p>
+        </div>
+            {% empty %}
+    <li style="color: white;font-size: 20px">Kullanıcı Yorum Yapmamıştır.</li>
+        {% endfor %}
+    </div>
+
+
+</div>
+<div class="bosluk"></div>
+
+</body>

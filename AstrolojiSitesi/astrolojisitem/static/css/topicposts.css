@@ -1,0 +1,336 @@
+@import url('https://fonts.cdnfonts.com/css/zagora');
+body{
+   background-color: #191919;
+}
+
+nav {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    z-index: 100;
+
+}
+.btn{
+
+    color: red;
+    text-decoration: none;
+    border: 2px solid transparent;
+    font-weight: bold;
+    margin-left: 50px;
+    padding: 10px 25px;
+    border-radius: 30px;
+
+
+}
+.btn i{
+    font-size: 20px;
+}
+.logo a{
+
+    color: #191919;
+    font-size: 40px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Zagora', sans-serif;
+}
+.logo a:hover{
+
+    color:#f9004d;
+}
+
+nav ul li{
+    font-size: 20px;
+    list-style-type:none;
+    display: inline-block;
+    padding: 10px 60px;
+
+
+}
+nav ul li a{
+    z-index: 100;
+    position: relative;
+    color: #191919;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+nav ul li a:hover{
+    color: #f9004d;
+    transition: .4s;
+
+}
+.ppp{
+    margin-left: 20px;
+    margin-right: 30px;
+    height: 40px;
+    background-color: #484747;
+    justify-content: center;
+    justify-self: center;
+    align-self: center;
+
+}
+.pp{
+    width: 80%;
+    color: white;
+    padding-left: 20px;
+}
+
+h1{
+    color: white;
+    margin: 20px 0 20px;
+    font-size: 75px;
+
+}
+h3{
+    color: white;
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+h4{
+    color: white;
+    letter-spacing: 2px ;
+    font-size: 20px;
+
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+}
+.dropdown1{
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dropdown p{
+    margin: 10px;
+    font-weight: bold;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown-content a:hover {background-color: #ddd;}
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+
+
+.topic{
+    width: 100%;
+    padding-top: 150px;
+    color: #191919;
+    margin-bottom: 100px;
+    background-color: #2c2c2c;
+}
+.gonderen{
+    margin-right: 100px;
+}
+h1{
+    text-align: center;
+    font-size: 35px;
+}
+.baslik{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.baslikicon{
+  justify-self: end;
+}
+.baslik a{
+    color: white;
+}
+.aciklama{
+    margin-top: 100px;
+
+}
+.aciklama p{
+    color: white;
+    font-size: 20px;
+
+    padding-left: 20px;
+    padding-right: 40px;
+
+}
+.begeni{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 30px;
+    padding-top: 30px;
+
+}
+.like{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+.like p{
+    color: #ababab;
+}
+
+.colls{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}
+.coll1{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.coll2{
+    display: flex;
+    flex-direction: column;
+    order: 2;
+    margin-left: 50px;
+    margin-right: 200px;
+    
+}
+.coll2 a{
+
+   display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 15px;
+    color: white;
+
+}
+.topicler{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+.topicler p{
+    color: white;
+}
+.basliklar{
+    margin-top: 150px;
+}
+.posts{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 200px;
+    width: 600px;
+background-color: transparent;
+
+
+}
+.hrr{
+
+    width:100%;
+    height: 40px;
+    position: relative;
+    top: 20px;
+    border: none;
+
+    background: #191919;
+    margin-bottom: 50px;
+
+}
+.post{
+
+    background-color: #2c2c2c;
+
+    margin-top: 50px;
+
+}
+
+.message{
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.kisi{
+    color: #ababab;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: start;
+    gap: 15px;
+}
+
+.uc{
+    color: white;
+     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 30px;
+}
+
+.aa{
+    color: white;
+}
+
+
+.yeni_yorum{
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    margin-right: 100px;
+}
+.yeni_yorum h2{
+    color: white;
+}
+.inputbox{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+.bttn{
+
+    color: #191919;
+    text-decoration: none;
+    border: 2px solid transparent;
+    font-weight: bold;
+    margin-left: 150px;
+    margin-right: 30px;
+    padding: 10px 25px;
+    border-radius: 10px;
+}
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/register.css' %}"/>
+        <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+ <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+<title>Kaydol</title>
+</head>
+<body>
+<nav> <h2 class="logo"><a href="anasayfa">Astrolots</a></h2></nav>
+<section>
+     <div class="error">{% if error %}<div class="error">{{ error }}</div>{% endif %}</div>
+    <div class="form-box">
+    <div class="form-value">
+        <h2>Register</h2>
+        <hr>
+        <form  method="POST" action="{% url 'register' %}">{% csrf_token %}
+
+
+        <div class="user-detail">
+             <div class="inputbox">
+                 <ion-icon name="contact"></ion-icon>
+                 <input type="text" class="form-control" name="username" placeholder="Zorunlu">
+                <label for="username" class="form-label">Kullanıcı Adı</label>
+
+            </div>
+        <div class="inputbox">
+            <ion-icon name="mail"></ion-icon>
+             <input type="email" class="form-control" name="email" placeholder="Zorunlu">
+                <label for="email" class="form-label">Email</label>
+
+            </div>
+        <div class="ad-soyad">
+             <div class="inputbox">
+                 <ion-icon name="person"></ion-icon>
+                  <input type="text" class="form-control" name="name" placeholder="İsteğe Bağlı">
+                <label for="name" class="form-label">İsim</label>
+
+            </div>
+        <div class="inputbox">
+            <ion-icon name="person"></ion-icon>
+             <input type="text" class="form-control" name="surname" placeholder="İsteğe Bağlı">
+                <label for="surname" class="form-label">Soyisim</label>
+
+            </div>
+        </div>
+       <div class="dogum-tarih">
+            <div class="inputbox">
+                <ion-icon name="calendar"></ion-icon>
+                 <input type="number" class="form-control" name="gun" placeholder="Zorunlu" min="1" max="31">
+                <label for="gun" class="form-label">Gün</label>
+
+            </div>
+         <div class="inputbox">
+             <ion-icon name="calendar"></ion-icon>
+             <input type="number" class="form-control" name="ay" placeholder="Zorunlu" min="1" max="12">
+                <label for="ay" class="form-label">Ay</label>
+
+            </div>
+         <div class="inputbox">
+             <ion-icon name="calendar"></ion-icon>
+              <input type="number" class="form-control" name="yil" placeholder="Zorunlu" min="1900" max="2023">
+                <label for="yil" class="form-label">Yıl</label>
+
+            </div>
+       </div>
+        <div class="parolalar"> <div class="inputbox">
+            <ion-icon name="lock"></ion-icon>
+             <input type="password" class="form-control" name="password" placeholder="Zorunlu">
+                <label for="password" class="form-label">Parola</label>
+
+            </div>
+        <div class="inputbox">
+            <ion-icon name="lock"></ion-icon>
+             <input type="password" class="form-control" name="repassword" placeholder="Zorunlu">
+                <label for="repassword" class="form-label">Parola Tekrarı</label>
+
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+            <button type="submit" value="Register" class="btn btn-primary">Kaydol</button>
+         <div class="login">
+                        <p>Hesabın var mı?<a href="{% url 'login' %}">Giriş Yap</a></p>
+         </div>
+        </form>
+</div>
+</div>
+</section>
+
+
+</body>
+</html>
